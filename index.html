@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #121212;
-            color: #f1f1f1;
+            background-color: #fdfbf7;
+            color: #262626;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
@@ -32,32 +32,34 @@
         }
         .glow-button {
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.25);
         }
         .glow-button:hover {
-            box-shadow: 0 0 25px rgba(234, 179, 8, 0.5);
+            box-shadow: 0 6px 22px rgba(234, 179, 8, 0.45);
             transform: translateY(-2px);
         }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center relative p-4 md:p-8 select-none">
 
+    <!-- Background Canvas for Falling Sunflowers and Petals -->
     <canvas id="bgCanvas"></canvas>
 
+    <!-- Main Content Container -->
     <main class="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center justify-center my-auto">
         
         <!-- Left Side: Romantic Text Card -->
-        <section class="flex flex-col justify-center space-y-6 bg-neutral-900/70 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-yellow-500/20 shadow-2xl">
+        <section class="flex flex-col justify-center space-y-6 bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-yellow-200/80 shadow-xl">
             
             <header>
-                <h1 class="title-font text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-400 tracking-wider leading-relaxed flex items-center gap-2 flex-wrap">
+                <h1 class="title-font text-xl sm:text-2xl lg:text-3xl font-bold text-amber-600 tracking-wider leading-relaxed flex items-center gap-2 flex-wrap">
                     <span>🌻</span>
                     <span>FELIZ DÍA DE LAS FLORES AMARILLAS</span>
                     <span>🌻</span>
                 </h1>
             </header>
 
-            <article class="space-y-4 title-font text-sm sm:text-base text-neutral-200 leading-relaxed tracking-wide font-semibold">
+            <article class="space-y-4 title-font text-sm sm:text-base text-neutral-700 leading-relaxed tracking-wide font-semibold">
                 <p>
                     FLORES AMARILLAS PARA LA PERSONA QUE HACE QUE TODO SEA UN POQUITO MÁS BRILLANTE,
                 </p>
@@ -67,21 +69,21 @@
                 <p>
                     QUE ESTAS FLORES TE RECUERDEN LO ESPECIAL QUE ERES.
                 </p>
-                <p class="text-yellow-400 pt-2 font-bold text-lg sm:text-xl">
+                <p class="text-amber-500 pt-2 font-bold text-lg sm:text-xl">
                     - ¡TE QUIERO!
                 </p>
             </article>
 
-            <hr class="border-neutral-800 my-2">
+            <hr class="border-amber-100 my-2">
 
             <div>
-                <p class="cursive-font text-2xl sm:text-3xl text-yellow-300 font-medium tracking-wide">
+                <p class="cursive-font text-2xl sm:text-3xl text-amber-600 font-medium tracking-wide">
                     Eres el sol que quisiera que floreciera cada uno de mis días. 🌻
                 </p>
             </div>
 
             <div class="pt-2">
-                <button id="rebloomBtn" class="glow-button px-6 py-3 rounded-full border border-yellow-500/50 bg-neutral-900/90 hover:bg-yellow-500/20 text-yellow-400 font-medium text-sm sm:text-base flex items-center gap-2 cursor-pointer transition-all">
+                <button id="rebloomBtn" class="glow-button px-6 py-3 rounded-full border border-yellow-400 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-sm sm:text-base flex items-center gap-2 cursor-pointer transition-all">
                     <span>✨</span>
                     <span>Florecer de nuevo</span>
                 </button>
@@ -89,20 +91,22 @@
 
         </section>
 
-        <!-- Right Side: Heart Tree Canvas -->
-        <section class="flex flex-col items-center justify-center w-full min-h-[420px] sm:min-h-[520px] relative">
-            <canvas id="treeCanvas" class="w-full max-w-[480px] h-[450px] sm:h-[520px] object-contain"></canvas>
+        <!-- Right Side: Heart Tree Canvas Container -->
+        <section class="flex flex-col items-center justify-center w-full min-h-[460px] sm:min-h-[560px] relative bg-white/40 backdrop-blur-sm rounded-3xl border border-yellow-100 shadow-md p-4">
+            <canvas id="treeCanvas" class="w-full max-w-[500px] h-[480px] sm:h-[540px] object-contain"></canvas>
         </section>
 
     </main>
 
+    <!-- JavaScript logic -->
     <script>
+        // --- Background Animation Logic ---
         const bgCanvas = document.getElementById('bgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
 
         let bgWidth, bgHeight;
         const fallingItems = [];
-        const TOTAL_FALLING = 22;
+        const TOTAL_FALLING = 26;
 
         function resizeBgCanvas() {
             bgWidth = bgCanvas.width = window.innerWidth;
@@ -118,20 +122,20 @@
             ctx.globalAlpha = opacity;
 
             if (isPetal) {
-                ctx.fillStyle = '#FACC15';
+                ctx.fillStyle = '#EAB308';
                 ctx.beginPath();
-                ctx.ellipse(0, 0, size * 0.4, size * 0.9, Math.PI / 4, 0, Math.PI * 2);
+                ctx.ellipse(0, 0, size * 0.45, size * 0.9, Math.PI / 4, 0, Math.PI * 2);
                 ctx.fill();
             } else {
-                const petals = 10;
-                ctx.fillStyle = '#EAB308';
+                const petals = 12;
+                ctx.fillStyle = '#F59E0B';
                 for (let i = 0; i < petals; i++) {
                     ctx.rotate((Math.PI * 2) / petals);
                     ctx.beginPath();
                     ctx.ellipse(0, size * 0.5, size * 0.18, size * 0.5, 0, 0, Math.PI * 2);
                     ctx.fill();
                 }
-                ctx.fillStyle = '#451a03';
+                ctx.fillStyle = '#78350F';
                 ctx.beginPath();
                 ctx.arc(0, 0, size * 0.38, 0, Math.PI * 2);
                 ctx.fill();
@@ -149,13 +153,13 @@
                 this.x = Math.random() * bgWidth;
                 this.y = initial ? Math.random() * bgHeight : -30;
                 this.size = Math.random() * 8 + 8;
-                this.speedY = Math.random() * 0.8 + 0.5;
+                this.speedY = Math.random() * 0.7 + 0.4;
                 this.speedX = Math.sin(Math.random() * Math.PI) * 0.3;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotSpeed = (Math.random() - 0.5) * 0.02;
-                this.opacity = Math.random() * 0.4 + 0.2;
+                this.opacity = Math.random() * 0.35 + 0.15;
                 this.swingAngle = Math.random() * Math.PI * 2;
-                this.swingSpeed = Math.random() * 0.02 + 0.008;
+                this.swingSpeed = Math.random() * 0.015 + 0.005;
                 this.isPetal = Math.random() > 0.4;
             }
 
@@ -189,6 +193,7 @@
         }
         animateBg();
 
+        // --- Heart Tree Canvas Logic ---
         const treeCanvas = document.getElementById('treeCanvas');
         const treeCtx = treeCanvas.getContext('2d');
 
@@ -197,46 +202,47 @@
         let bloomStartTime = 0;
 
         function initTreeCanvas() {
-            treeCanvas.width = 480 * window.devicePixelRatio;
-            treeCanvas.height = 520 * window.devicePixelRatio;
+            treeCanvas.width = 500 * window.devicePixelRatio;
+            treeCanvas.height = 540 * window.devicePixelRatio;
             treeCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
         }
         initTreeCanvas();
 
         function isInHeart(x, y) {
-            // Normalized coordinates around heart center
-            const nx = x / 12.5;
-            const ny = -y / 12.5;
+            // Normalized math coordinates for smooth heart shape
+            const nx = x / 11.0;
+            const ny = -y / 11.0;
             return (Math.pow(nx * nx + ny * ny - 1, 3) - nx * nx * Math.pow(ny, 3)) <= 0;
         }
 
-        function generateSeamlessHeart() {
+        function generateHeartFlowers() {
             flowers = [];
-            const centerX = 240;
-            const centerY = 195;
-            const scale = 12.5;
+            // Centered safely inside canvas bounds (500x540) to prevent edge clipping
+            const centerX = 250;
+            const centerY = 190;
+            const scale = 11.0;
             
-            // Flower radius tuned to slightly overlap neighbors and erase gaps cleanly
-            const flowerSize = 22; 
-            const spacing = 19; // Uniform grid spacing for clean structure
+            const flowerSize = 20; 
+            const spacing = 17.5; 
 
-            for (let y = -15; y <= 15; y += 1.4) {
-                for (let x = -15; x <= 15; x += 1.4) {
-                    // Slight stagger on alternate rows for organic interlocking
-                    const xOffset = (Math.round(y * 10) % 2 === 0) ? 0 : 0.7;
+            // Inner heart grid (Gapless & full without over-saturating)
+            for (let y = -14; y <= 14; y += 1.35) {
+                for (let x = -14; x <= 14; x += 1.35) {
+                    const xOffset = (Math.round(y * 10) % 2 === 0) ? 0 : 0.65;
                     const sampleX = x + xOffset;
                     const sampleY = y;
 
                     if (isInHeart(sampleX, sampleY)) {
-                        const px = centerX + sampleX * (spacing * 0.68);
-                        const py = centerY + sampleY * (spacing * 0.68);
+                        const px = centerX + sampleX * (spacing * 0.66);
+                        const py = centerY + sampleY * (spacing * 0.66);
                         const distFromCenter = Math.hypot(px - centerX, py - centerY);
 
                         flowers.push({
                             x: px,
                             y: py,
                             maxSize: flowerSize,
-                            delay: distFromCenter * 8 + Math.random() * 180,
+                            // Slower delayed appearance sequence
+                            delay: distFromCenter * 24 + Math.random() * 400,
                             rotation: Math.random() * Math.PI * 2,
                             petals: 14
                         });
@@ -244,21 +250,21 @@
                 }
             }
 
-            // Boundary ring to ensure crisp heart outline
-            for (let t = 0; t < Math.PI * 2; t += 0.09) {
+            // Crisp heart boundary ring to prevent jagged edges
+            for (let t = 0; t < Math.PI * 2; t += 0.08) {
                 const hx = 16 * Math.pow(Math.sin(t), 3);
                 const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-                const px = centerX + hx * (scale * 0.95);
-                const py = centerY + hy * (scale * 0.95);
+                const px = centerX + hx * (scale * 0.92);
+                const py = centerY + hy * (scale * 0.92);
 
                 const distFromCenter = Math.hypot(px - centerX, py - centerY);
 
                 flowers.push({
                     x: px,
                     y: py,
-                    maxSize: flowerSize * 0.95,
-                    delay: distFromCenter * 8 + Math.random() * 120,
+                    maxSize: flowerSize * 0.92,
+                    delay: distFromCenter * 24 + Math.random() * 300,
                     rotation: Math.random() * Math.PI * 2,
                     petals: 14
                 });
@@ -270,34 +276,34 @@
         function drawStemAndBase() {
             treeCtx.save();
 
-            // Trunk / Stem
-            const gradient = treeCtx.createLinearGradient(230, 300, 250, 450);
-            gradient.addColorStop(0, '#16a34a');
-            gradient.addColorStop(1, '#14532d');
+            // Stem / Trunk
+            const gradient = treeCtx.createLinearGradient(240, 280, 260, 470);
+            gradient.addColorStop(0, '#15803d');
+            gradient.addColorStop(1, '#166534');
             
             treeCtx.fillStyle = gradient;
             treeCtx.beginPath();
-            treeCtx.moveTo(234, 300);
-            treeCtx.lineTo(246, 300);
-            treeCtx.lineTo(249, 440);
-            treeCtx.lineTo(231, 440);
+            treeCtx.moveTo(243, 280);
+            treeCtx.lineTo(257, 280);
+            treeCtx.lineTo(260, 460);
+            treeCtx.lineTo(240, 460);
             treeCtx.closePath();
             treeCtx.fill();
 
             // Leaves
             treeCtx.fillStyle = '#15803d';
             treeCtx.beginPath();
-            treeCtx.ellipse(218, 365, 24, 11, -Math.PI / 4, 0, Math.PI * 2);
+            treeCtx.ellipse(224, 375, 26, 12, -Math.PI / 4, 0, Math.PI * 2);
             treeCtx.fill();
 
             treeCtx.beginPath();
-            treeCtx.ellipse(262, 385, 24, 11, Math.PI / 4, 0, Math.PI * 2);
+            treeCtx.ellipse(276, 395, 26, 12, Math.PI / 4, 0, Math.PI * 2);
             treeCtx.fill();
 
-            // Base Stand / Pot
-            treeCtx.fillStyle = '#064e3b';
+            // Base Pot
+            treeCtx.fillStyle = '#065f46';
             treeCtx.beginPath();
-            treeCtx.roundRect(215, 435, 50, 14, 5);
+            treeCtx.roundRect(222, 455, 56, 16, 6);
             treeCtx.fill();
 
             treeCtx.restore();
@@ -331,7 +337,7 @@
             }
 
             // Dark Center Seed Head
-            treeCtx.fillStyle = '#3b1a0e';
+            treeCtx.fillStyle = '#451a03';
             treeCtx.beginPath();
             treeCtx.arc(0, 0, size * 0.36, 0, Math.PI * 2);
             treeCtx.fill();
@@ -348,7 +354,7 @@
             if (!bloomStartTime) bloomStartTime = timestamp;
             const elapsed = timestamp - bloomStartTime;
 
-            treeCtx.clearRect(0, 0, 480, 520);
+            treeCtx.clearRect(0, 0, 500, 540);
 
             drawStemAndBase();
 
@@ -359,9 +365,11 @@
 
                 if (elapsed > flower.delay) {
                     const flowerAge = elapsed - flower.delay;
-                    const duration = 300;
+                    // Slower growth duration (800ms per flower bloom)
+                    const duration = 800; 
                     
                     let progress = Math.min(flowerAge / duration, 1);
+                    // Smooth easeOutCubic curve
                     const scaleProgress = 1 - Math.pow(1 - progress, 3);
                     
                     const currentSize = flower.maxSize * scaleProgress;
@@ -381,7 +389,7 @@
 
         function startBlooming() {
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            generateSeamlessHeart();
+            generateHeartFlowers();
             bloomStartTime = 0;
             animationFrameId = requestAnimationFrame(animateHeartTree);
         }
