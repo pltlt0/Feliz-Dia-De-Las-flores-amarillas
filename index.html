@@ -1,380 +1,403 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feliz Día de las Flores Amarillas 🌻</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Caveat:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #f7f5ed;
-      color: #2b2b2b;
-      font-family: 'Cinzel', serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      padding: 20px;
-    }
-
-    /* Contenedor principal responsive */
-    .container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1100px;
-      width: 100%;
-      background-color: #f7f5ed;
-      padding: 40px;
-      gap: 30px;
-    }
-
-    /* Lado Izquierdo: Mensaje Poético */
-    .text-column {
-      flex: 1;
-      max-width: 500px;
-      text-align: left;
-      z-index: 2;
-    }
-
-    .title-header {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .poem-text {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      line-height: 2.1;
-      font-weight: 600;
-      color: #222;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
-
-    .signature {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 35px;
-      color: #000;
-    }
-
-    .sub-quote {
-      font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
-      color: #1a1a1a;
-      text-transform: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-top: 1px solid rgba(0, 0, 0, 0.15);
-      padding-top: 15px;
-      margin-top: 10px;
-    }
-
-    /* Lado Derecho: Canvas del Árbol Corazón */
-    .tree-column {
-      flex: 1.2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    #heartTreeCanvas {
-      width: 100%;
-      max-width: 550px;
-      height: auto;
-      aspect-ratio: 1 / 1;
-    }
-
-    /* Botón de reinicio de animación sutil */
-    .replay-btn {
-      margin-top: 20px;
-      background: transparent;
-      border: 1px solid #d4a373;
-      color: #8b5e34;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .replay-btn:hover {
-      background: #faedcd;
-      color: #d4a373;
-    }
-
-    /* Adaptación a dispositivos móviles */
-    @media (max-width: 850px) {
-      .container {
-        flex-direction: column-reverse;
-        padding: 20px 10px;
-        text-align: center;
-      }
-
-      .text-column {
-        text-align: center;
-        max-width: 100%;
-      }
-
-      .title-header {
-        justify-content: center;
-      }
-
-      .sub-quote {
-        justify-content: center;
-      }
-
-      .poem-text {
-        font-size: 0.95rem;
-        line-height: 1.9;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de las Flores Amarillas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .title-font {
+            font-family: 'Cinzel', serif;
+        }
+        .cursive-font {
+            font-family: 'Caveat', cursive;
+        }
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center relative p-4 md:p-8 select-none">
 
-  <div class="container">
-    
-    <!-- Lado Izquierdo: Texto y Poema -->
-    <div class="text-column">
-      <div class="title-header">
-        🌻 FELIZ DÍA DE LAS FLORES AMARILLAS 🌻
-      </div>
+    <canvas id="bgCanvas"></canvas>
 
-      <div class="poem-text">
-        Flores amarillas para la persona que hace que todo sea un poquito más brillante,<br>
-        Espero que te saquen una sonrisa.<br>
-        QUE ESTAS FLORES TE RECUERDEN LO ESPECIAL QUE ERES PARA MÍ.
-      </div>
-
-      <div class="signature">
-        - ¡TE QUIERO!
-      </div>
-
-      <div class="sub-quote">
-        Eres el sol que hace florecer cada uno de mis días. 🌻
-      </div>
-
-      <div>
-        <button class="replay-btn" onclick="initHeartTree()">
-          ✨ Florecer de nuevo
-        </button>
-      </div>
-    </div>
-
-    <!-- Lado Derecho: Árbol en forma de Corazón con Girasoles -->
-    <div class="tree-column">
-      <canvas id="heartTreeCanvas" width="600" height="600"></canvas>
-    </div>
-
-  </div>
-
-  <script>
-    const canvas = document.getElementById('heartTreeCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let sunflowers = [];
-    let trunkProgress = 0;
-    let animationFrameId;
-
-    // Fórmula paramétrica del corazón
-    function getHeartPoint(t) {
-      const x = 16 * Math.pow(Math.sin(t), 3);
-      const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-      return { x, y };
-    }
-
-    // Generador de flores rellenando la forma de corazón
-    function generateHeartSunflowers(count) {
-      const flowers = [];
-      let i = 0;
-
-      while (i < count) {
-        // Generar punto aleatorio dentro del área
-        const t = Math.random() * Math.PI * 2;
-        const scale = Math.random(); // Distribución dentro del perímetro
+    <main class="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center justify-center my-auto">
         
-        const point = getHeartPoint(t);
-        
-        // Coordenadas ajustadas al Canvas
-        const x = 300 + point.x * 14 * Math.sqrt(scale);
-        const y = 230 + point.y * 14 * Math.sqrt(scale);
+        <!-- Left Side: Romantic Text Card -->
+        <section class="flex flex-col justify-center space-y-6 bg-neutral-900/70 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-yellow-500/20 shadow-2xl">
+            
+            <header>
+                <h1 class="title-font text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-400 tracking-wider leading-relaxed flex items-center gap-2 flex-wrap">
+                    <span>🌻</span>
+                    <span>FELIZ DÍA DE LAS FLORES AMARILLAS</span>
+                    <span>🌻</span>
+                </h1>
+            </header>
 
-        // Tamaño del girasol aleatorio pero balanceado
-        const radius = Math.random() * 6 + 7;
-        const delay = Math.random() * 100; // Retraso de aparición gradual
+            <article class="space-y-4 title-font text-sm sm:text-base text-neutral-200 leading-relaxed tracking-wide font-semibold">
+                <p>
+                    FLORES AMARILLAS PARA LA PERSONA QUE HACE QUE TODO SEA UN POQUITO MÁS BRILLANTE,
+                </p>
+                <p>
+                    ESPERO QUE TE SAQUEN UNA SONRISA.
+                </p>
+                <p>
+                    QUE ESTAS FLORES TE RECUERDEN LO ESPECIAL QUE ERES.
+                </p>
+                <p class="text-yellow-400 pt-2 font-bold text-lg sm:text-xl">
+                    - ¡TE QUIERO!
+                </p>
+            </article>
 
-        flowers.push({
-          x, y, radius, delay,
-          currentScale: 0,
-          rotation: Math.random() * Math.PI * 2
-        });
+            <hr class="border-neutral-800 my-2">
 
-        i++;
-      }
-      return flowers;
-    }
+            <div>
+                <p class="cursive-font text-2xl sm:text-3xl text-yellow-300 font-medium tracking-wide">
+                    Eres el sol que quisiera que floreciera cada uno de mis días. 🌻
+                </p>
+            </div>
 
-    // Dibujar Tronco del Árbol
-    function drawTrunk(progress) {
-      ctx.save();
-      
-      // Suelo / Base
-      ctx.beginPath();
-      ctx.moveTo(100, 520);
-      ctx.lineTo(500, 520);
-      ctx.strokeStyle = '#1e3d34';
-      ctx.lineWidth = 3;
-      ctx.stroke();
+            <div class="pt-2">
+                <button id="rebloomBtn" class="glow-button px-6 py-3 rounded-full border border-yellow-500/50 bg-neutral-900/90 hover:bg-yellow-500/20 text-yellow-400 font-medium text-sm sm:text-base flex items-center gap-2 cursor-pointer transition-all">
+                    <span>✨</span>
+                    <span>Florecer de nuevo</span>
+                </button>
+            </div>
 
-      // Tronco Principal (Verde Oscuro elegante como en la foto)
-      ctx.fillStyle = '#1e4d40';
-      
-      const currentHeight = 220 * progress;
-      
-      ctx.beginPath();
-      ctx.moveTo(280, 520);
-      ctx.lineTo(320, 520);
-      ctx.lineTo(312, 520 - currentHeight);
-      ctx.lineTo(288, 520 - currentHeight);
-      ctx.closePath();
-      ctx.fill();
+        </section>
 
-      // Maceta/Base cilíndrica bonita
-      if (progress > 0.5) {
-        ctx.fillStyle = '#1e4d40';
-        ctx.beginPath();
-        ctx.roundRect(275, 500, 50, 20, 4);
-        ctx.fill();
-      }
+        <!-- Right Side: Heart Tree Canvas -->
+        <section class="flex flex-col items-center justify-center w-full min-h-[420px] sm:min-h-[520px] relative">
+            <canvas id="treeCanvas" class="w-full max-w-[480px] h-[450px] sm:h-[520px] object-contain"></canvas>
+        </section>
 
-      ctx.restore();
-    }
+    </main>
 
-    // Dibujar un Girasol individual
-    function drawSunflower(x, y, radius, scale, rotation) {
-      if (scale <= 0) return;
+    <script>
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
 
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(rotation);
-      ctx.scale(scale, scale);
+        let bgWidth, bgHeight;
+        const fallingItems = [];
+        const TOTAL_FALLING = 22;
 
-      // Pétalos Amarillos
-      const petalCount = 12;
-      ctx.fillStyle = '#ffcc00';
-      
-      for (let i = 0; i < petalCount; i++) {
-        ctx.rotate((Math.PI * 2) / petalCount);
-        ctx.beginPath();
-        ctx.ellipse(0, radius * 1.1, radius * 0.4, radius * 0.9, 0, 0, Math.PI * 2);
-        ctx.fill();
-      }
+        function resizeBgCanvas() {
+            bgWidth = bgCanvas.width = window.innerWidth;
+            bgHeight = bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        resizeBgCanvas();
 
-      // Capa de Pétalos Dorados Interiores
-      ctx.fillStyle = '#ffa700';
-      for (let i = 0; i < petalCount; i++) {
-        ctx.rotate((Math.PI * 2) / petalCount);
-        ctx.beginPath();
-        ctx.ellipse(0, radius * 0.8, radius * 0.3, radius * 0.6, 0, 0, Math.PI * 2);
-        ctx.fill();
-      }
+        function drawBackgroundItem(ctx, x, y, size, rotation, opacity, isPetal) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+            ctx.globalAlpha = opacity;
 
-      // Centro Oscuro/Marrón del Girasol
-      ctx.beginPath();
-      ctx.arc(0, 0, radius * 0.55, 0, Math.PI * 2);
-      ctx.fillStyle = '#3a1e05';
-      ctx.fill();
-
-      // Detalle del centro
-      ctx.beginPath();
-      ctx.arc(0, 0, radius * 0.35, 0, Math.PI * 2);
-      ctx.fillStyle = '#241303';
-      ctx.fill();
-
-      ctx.restore();
-    }
-
-    // Bucle de Animación
-    let frame = 0;
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 1. Crecimiento del tronco
-      if (trunkProgress < 1) {
-        trunkProgress += 0.03;
-      }
-
-      drawTrunk(Math.min(trunkProgress, 1));
-
-      // 2. Aparición de las flores en el corazón
-      if (trunkProgress > 0.4) {
-        frame++;
-        let completed = true;
-
-        sunflowers.forEach(flower => {
-          if (frame > flower.delay) {
-            if (flower.currentScale < 1) {
-              flower.currentScale += 0.05;
-              completed = false;
+            if (isPetal) {
+                ctx.fillStyle = '#FACC15';
+                ctx.beginPath();
+                ctx.ellipse(0, 0, size * 0.4, size * 0.9, Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                const petals = 10;
+                ctx.fillStyle = '#EAB308';
+                for (let i = 0; i < petals; i++) {
+                    ctx.rotate((Math.PI * 2) / petals);
+                    ctx.beginPath();
+                    ctx.ellipse(0, size * 0.5, size * 0.18, size * 0.5, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.fillStyle = '#451a03';
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.38, 0, Math.PI * 2);
+                ctx.fill();
             }
-          } else {
-            completed = false;
-          }
 
-          drawSunflower(
-            flower.x, 
-            flower.y, 
-            flower.radius, 
-            Math.min(flower.currentScale, 1), 
-            flower.rotation
-          );
+            ctx.restore();
+        }
+
+        class FallingPetal {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * bgWidth;
+                this.y = initial ? Math.random() * bgHeight : -30;
+                this.size = Math.random() * 8 + 8;
+                this.speedY = Math.random() * 0.8 + 0.5;
+                this.speedX = Math.sin(Math.random() * Math.PI) * 0.3;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+                this.opacity = Math.random() * 0.4 + 0.2;
+                this.swingAngle = Math.random() * Math.PI * 2;
+                this.swingSpeed = Math.random() * 0.02 + 0.008;
+                this.isPetal = Math.random() > 0.4;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.swingAngle += this.swingSpeed;
+                this.x += Math.sin(this.swingAngle) * 0.6 + this.speedX;
+                this.rotation += this.rotSpeed;
+
+                if (this.y > bgHeight + 30 || this.x < -30 || this.x > bgWidth + 30) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                drawBackgroundItem(bgCtx, this.x, this.y, this.size, this.rotation, this.opacity, this.isPetal);
+            }
+        }
+
+        for (let i = 0; i < TOTAL_FALLING; i++) {
+            fallingItems.push(new FallingPetal());
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgWidth, bgHeight);
+            fallingItems.forEach(item => {
+                item.update();
+                item.draw();
+            });
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        const treeCanvas = document.getElementById('treeCanvas');
+        const treeCtx = treeCanvas.getContext('2d');
+
+        let flowers = [];
+        let animationFrameId;
+        let bloomStartTime = 0;
+
+        function initTreeCanvas() {
+            treeCanvas.width = 480 * window.devicePixelRatio;
+            treeCanvas.height = 520 * window.devicePixelRatio;
+            treeCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        initTreeCanvas();
+
+        function isInHeart(x, y) {
+            // Normalized coordinates around heart center
+            const nx = x / 12.5;
+            const ny = -y / 12.5;
+            return (Math.pow(nx * nx + ny * ny - 1, 3) - nx * nx * Math.pow(ny, 3)) <= 0;
+        }
+
+        function generateSeamlessHeart() {
+            flowers = [];
+            const centerX = 240;
+            const centerY = 195;
+            const scale = 12.5;
+            
+            // Flower radius tuned to slightly overlap neighbors and erase gaps cleanly
+            const flowerSize = 22; 
+            const spacing = 19; // Uniform grid spacing for clean structure
+
+            for (let y = -15; y <= 15; y += 1.4) {
+                for (let x = -15; x <= 15; x += 1.4) {
+                    // Slight stagger on alternate rows for organic interlocking
+                    const xOffset = (Math.round(y * 10) % 2 === 0) ? 0 : 0.7;
+                    const sampleX = x + xOffset;
+                    const sampleY = y;
+
+                    if (isInHeart(sampleX, sampleY)) {
+                        const px = centerX + sampleX * (spacing * 0.68);
+                        const py = centerY + sampleY * (spacing * 0.68);
+                        const distFromCenter = Math.hypot(px - centerX, py - centerY);
+
+                        flowers.push({
+                            x: px,
+                            y: py,
+                            maxSize: flowerSize,
+                            delay: distFromCenter * 8 + Math.random() * 180,
+                            rotation: Math.random() * Math.PI * 2,
+                            petals: 14
+                        });
+                    }
+                }
+            }
+
+            // Boundary ring to ensure crisp heart outline
+            for (let t = 0; t < Math.PI * 2; t += 0.09) {
+                const hx = 16 * Math.pow(Math.sin(t), 3);
+                const hy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+                const px = centerX + hx * (scale * 0.95);
+                const py = centerY + hy * (scale * 0.95);
+
+                const distFromCenter = Math.hypot(px - centerX, py - centerY);
+
+                flowers.push({
+                    x: px,
+                    y: py,
+                    maxSize: flowerSize * 0.95,
+                    delay: distFromCenter * 8 + Math.random() * 120,
+                    rotation: Math.random() * Math.PI * 2,
+                    petals: 14
+                });
+            }
+
+            flowers.sort((a, b) => a.delay - b.delay);
+        }
+
+        function drawStemAndBase() {
+            treeCtx.save();
+
+            // Trunk / Stem
+            const gradient = treeCtx.createLinearGradient(230, 300, 250, 450);
+            gradient.addColorStop(0, '#16a34a');
+            gradient.addColorStop(1, '#14532d');
+            
+            treeCtx.fillStyle = gradient;
+            treeCtx.beginPath();
+            treeCtx.moveTo(234, 300);
+            treeCtx.lineTo(246, 300);
+            treeCtx.lineTo(249, 440);
+            treeCtx.lineTo(231, 440);
+            treeCtx.closePath();
+            treeCtx.fill();
+
+            // Leaves
+            treeCtx.fillStyle = '#15803d';
+            treeCtx.beginPath();
+            treeCtx.ellipse(218, 365, 24, 11, -Math.PI / 4, 0, Math.PI * 2);
+            treeCtx.fill();
+
+            treeCtx.beginPath();
+            treeCtx.ellipse(262, 385, 24, 11, Math.PI / 4, 0, Math.PI * 2);
+            treeCtx.fill();
+
+            // Base Stand / Pot
+            treeCtx.fillStyle = '#064e3b';
+            treeCtx.beginPath();
+            treeCtx.roundRect(215, 435, 50, 14, 5);
+            treeCtx.fill();
+
+            treeCtx.restore();
+        }
+
+        function drawSunflower(x, y, size, rotation, petalsCount) {
+            treeCtx.save();
+            treeCtx.translate(x, y);
+            treeCtx.rotate(rotation);
+
+            const petalLength = size;
+            const petalWidth = size * 0.42;
+
+            // Outer Petals
+            treeCtx.fillStyle = '#FACC15';
+            for (let i = 0; i < petalsCount; i++) {
+                treeCtx.rotate((Math.PI * 2) / petalsCount);
+                treeCtx.beginPath();
+                treeCtx.ellipse(0, petalLength / 2, petalWidth / 2, petalLength / 2, 0, 0, Math.PI * 2);
+                treeCtx.fill();
+            }
+
+            // Inner Petal Highlights
+            treeCtx.fillStyle = '#EAB308';
+            treeCtx.rotate(Math.PI / petalsCount);
+            for (let i = 0; i < petalsCount; i++) {
+                treeCtx.rotate((Math.PI * 2) / petalsCount);
+                treeCtx.beginPath();
+                treeCtx.ellipse(0, (petalLength * 0.8) / 2, petalWidth * 0.4, (petalLength * 0.8) / 2, 0, 0, Math.PI * 2);
+                treeCtx.fill();
+            }
+
+            // Dark Center Seed Head
+            treeCtx.fillStyle = '#3b1a0e';
+            treeCtx.beginPath();
+            treeCtx.arc(0, 0, size * 0.36, 0, Math.PI * 2);
+            treeCtx.fill();
+
+            treeCtx.fillStyle = '#78350f';
+            treeCtx.beginPath();
+            treeCtx.arc(0, 0, size * 0.22, 0, Math.PI * 2);
+            treeCtx.fill();
+
+            treeCtx.restore();
+        }
+
+        function animateHeartTree(timestamp) {
+            if (!bloomStartTime) bloomStartTime = timestamp;
+            const elapsed = timestamp - bloomStartTime;
+
+            treeCtx.clearRect(0, 0, 480, 520);
+
+            drawStemAndBase();
+
+            let allFinished = true;
+
+            for (let i = 0; i < flowers.length; i++) {
+                const flower = flowers[i];
+
+                if (elapsed > flower.delay) {
+                    const flowerAge = elapsed - flower.delay;
+                    const duration = 300;
+                    
+                    let progress = Math.min(flowerAge / duration, 1);
+                    const scaleProgress = 1 - Math.pow(1 - progress, 3);
+                    
+                    const currentSize = flower.maxSize * scaleProgress;
+
+                    drawSunflower(flower.x, flower.y, currentSize, flower.rotation, flower.petals);
+
+                    if (progress < 1) allFinished = false;
+                } else {
+                    allFinished = false;
+                }
+            }
+
+            if (!allFinished) {
+                animationFrameId = requestAnimationFrame(animateHeartTree);
+            }
+        }
+
+        function startBlooming() {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            generateSeamlessHeart();
+            bloomStartTime = 0;
+            animationFrameId = requestAnimationFrame(animateHeartTree);
+        }
+
+        document.getElementById('rebloomBtn').addEventListener('click', () => {
+            startBlooming();
         });
-      }
 
-      animationFrameId = requestAnimationFrame(animate);
-    }
+        window.addEventListener('load', () => {
+            startBlooming();
+        });
 
-    // Inicializar / Reiniciar Animación
-    function initHeartTree() {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      trunkProgress = 0;
-      frame = 0;
-      sunflowers = generateHeartSunflowers(320); // 320 girasoles forman la copa
-      animate();
-    }
-
-    // Arrancar automáticamente al cargar
-    window.onload = () => {
-      initHeartTree();
-    };
-  </script>
+        window.addEventListener('resize', () => {
+            initTreeCanvas();
+            startBlooming();
+        });
+    </script>
 </body>
 </html>
